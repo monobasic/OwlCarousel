@@ -81,7 +81,11 @@ if (typeof Object.create !== "function") {
             if (base.$elem.children().length === 0) {return false; }
             base.baseClass();
             base.eventTypes();
-            base.$userItems = base.$elem.children();
+            if (base.options.itemsSelector) {
+                base.$userItems = base.$elem.children().filter(base.options.itemsSelector);
+            } else {
+                base.$userItems = base.$elem.children();
+            }
             base.itemsAmount = base.$userItems.length;
             base.wrapItems();
             base.$owlItems = base.$elem.find(".owl-item");
@@ -1197,7 +1201,7 @@ if (typeof Object.create !== "function") {
                 iterations += 1;
                 if (base.completeImg($lazyImg.get(0)) || isBackgroundImg === true) {
                     showImage();
-                } else if (iterations <= 100) {//if image loads in less than 10 seconds 
+                } else if (iterations <= 100) {//if image loads in less than 10 seconds
                     window.setTimeout(checkLazyImage, 100);
                 } else {
                     showImage();
@@ -1226,7 +1230,7 @@ if (typeof Object.create !== "function") {
                 iterations += 1;
                 if (base.completeImg($currentimg.get(0))) {
                     addHeight();
-                } else if (iterations <= 100) { //if image loads in less than 10 seconds 
+                } else if (iterations <= 100) { //if image loads in less than 10 seconds
                     window.setTimeout(checkImage, 100);
                 } else {
                     base.wrapperOuter.css("height", ""); //Else remove height attribute
@@ -1460,6 +1464,7 @@ if (typeof Object.create !== "function") {
         itemsMobile : [479, 1],
         singleItem : false,
         itemsScaleUp : false,
+        itemsSelector : false,
 
         slideSpeed : 200,
         paginationSpeed : 800,
