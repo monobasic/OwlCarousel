@@ -82,7 +82,7 @@ if (typeof Object.create !== "function") {
             base.baseClass();
             base.eventTypes();
             if (base.options.itemsSelector) {
-                base.$userItems = base.$elem.children().filter(base.options.itemsSelector);
+                base.$userItems = base.$elem.find(base.options.itemsSelector);
             } else {
                 base.$userItems = base.$elem.children();
             }
